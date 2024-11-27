@@ -1,0 +1,2 @@
+set(MATHEMATICS_INCLUDE_ROOT ${CMAKE_SOURCE_DIR}/Include/DOS/Mathematics)
+

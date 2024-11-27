@@ -1,4 +1,4 @@
-#include "DOS/Mathematics/Math.h"
+#include "Mathematics/Math.h"
 
 
 const double E = 2.7182818284590452354;

@@ -1,7 +1,7 @@
 #pragma once
 
-#include "DOS/Collections/Tuple.h"
-#include "DOS/Collections/ArrayF.h"
+#include "Collections/Tuple.h"
+#include "Collections/ArrayF.h"
 #include "Math.h"
 
 #include <stdio.h>

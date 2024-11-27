@@ -1,4 +1,4 @@
-#include "DOS/Mathematics/Vector2F.h"
+#include "Mathematics/Vector2F.h"
 
 #include <stdlib.h>
 

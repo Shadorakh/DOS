@@ -1,6 +1,6 @@
 #pragma once
 
-#include "DOS/Mathematics/Math.h"
+#include "Mathematics/Math.h"
 
 #include <stdio.h>
 #include <stdlib.h>
