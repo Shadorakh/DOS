@@ -73,14 +73,14 @@ void Vector2F_Dot(ArrayF* const _result, const size_t _resultIndex,
 inline float Vector2F_DotScalar(const Vector2F* const _left, const size_t _leftIndex,
 	                            const Vector2F* const _right, const size_t _rightIndex);
 
-Tuple2F Vector2F_DownScalar(void);
+inline Tuple2F Vector2F_DownScalar(void);
 
-bool Vector2F_Equals(const Vector2F* const _left, const size_t _leftIndex,
+inline bool Vector2F_Equals(const Vector2F* const _left, const size_t _leftIndex,
 	                 const Vector2F* const _right, const size_t _rightIndex);
 
 inline Tuple2F Vector2F_Get(const Vector2F* const _vector, const size_t _index);
 
-bool Vector2F_IsNull(const Vector2F* const _vector);
+inline bool Vector2F_IsNull(const Vector2F* const _vector);
 
 inline Tuple2F Vector2F_LeftScalar(void);
 
