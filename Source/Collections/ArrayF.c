@@ -128,6 +128,26 @@ inline bool ArrayF_IsNull(const ArrayF* const _array)
 	return (_array == NULL || _array->data == NULL);
 }
 
+inline bool ArrayF_IsOutOfBounds(const ArrayF* const _array, const size_t _index)
+{
+	return _index >= _array->size;
+}
+
+inline bool ArrayF_IsValid(const ArrayF* const _array, const size_t _index)
+{
+	if (ArrayF_IsNull(_array)) 
+	{
+		return false;
+	}
+
+	if (ArrayF_IsOutOfBounds(_array, _index)) 
+	{
+		return false;
+	}
+
+	return true;
+}
+
 float ArrayF_Max(const ArrayF* const _array, const size_t _index, const size_t _count)
 {
 	float max = ArrayF_Get(_array, 0);

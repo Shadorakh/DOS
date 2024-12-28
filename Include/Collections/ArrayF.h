@@ -42,6 +42,10 @@ inline size_t ArrayF_GetSize(const ArrayF* const _array);
 
 inline bool ArrayF_IsNull(const ArrayF* const _array);
 
+inline bool ArrayF_IsOutOfBounds(const ArrayF* const _array, const size_t _index);
+
+inline bool ArrayF_IsValid(const ArrayF* const _array, const size_t _index);
+
 float ArrayF_Max(const ArrayF* const _array, const size_t _index, const size_t _count);
 
 float ArrayF_Min(const ArrayF* const _array, const size_t _index, const size_t _count);
