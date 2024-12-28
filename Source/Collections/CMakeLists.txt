@@ -1,5 +1,6 @@
 set(SOURCE_COLLECTIONS
    ${PROJECT_SOURCE_DIR}/Source/Collections/ArrayF.c
+   ${PROJECT_SOURCE_DIR}/Source/Collections/Tuple.c
 )
 
 set(INCLUDE_COLLECTIONS
