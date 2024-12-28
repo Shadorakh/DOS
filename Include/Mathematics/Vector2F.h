@@ -82,6 +82,10 @@ inline Tuple2F Vector2F_Get(const Vector2F* const _vector, const size_t _index);
 
 inline bool Vector2F_IsNull(const Vector2F* const _vector);
 
+inline bool Vector2F_IsOutOfBounds(const Vector2F* const _vector, const size_t _index);
+
+inline bool Vector2F_IsValid(const Vector2F* const _vector, const size_t _index);
+
 inline Tuple2F Vector2F_LeftScalar(void);
 
 void Vector2F_Length(ArrayF* const _result, const size_t _resultIndex,

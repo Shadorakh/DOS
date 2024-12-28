@@ -239,6 +239,26 @@ inline bool Vector2F_IsNull(const Vector2F* const _vector)
 	return (_vector == NULL || _vector->x.data == NULL || _vector->y.data == NULL);
 }
 
+inline bool Vector2F_IsOutOfBounds(const Vector2F* const _vector, const size_t _index)
+{
+	return _index >= _vector->x.size || _index >= _vector->y.size;
+}
+
+inline bool Vector2F_IsValid(const Vector2F* const _vector, const size_t _index)
+{
+	if (Vector2F_IsNull(_vector))
+	{
+		return false;
+	}
+
+	if (Vector2F_IsOutOfBounds(_vector, _index))
+	{
+		return false;
+	}
+
+	return true;
+}
+
 
 inline Tuple2F Vector2F_LeftScalar(void)
 {
