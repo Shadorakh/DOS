@@ -64,6 +64,15 @@ void ArrayF_Destroy(ArrayF** _array)
 	}
 }
 
+inline bool ArrayF_Equals(const ArrayF* const _left, const size_t _leftIndex,
+	                      const ArrayF* const _right, const size_t _rightIndex)
+{
+	const float left = ArrayF_Get(_left, _leftIndex);
+	const float right = ArrayF_Get(_right, _rightIndex);
+
+	return (AbsF(left) < EPSILON) && (AbsF(right) < EPSILON);
+}
+
 void ArrayF_Fill(const ArrayF* const _array, const size_t _index, const float _value, const size_t _count)
 {
 	for (size_t i = 0; i < _count; i++)
@@ -96,6 +105,27 @@ size_t ArrayF_FindLastIndex(const ArrayF* const _array, const size_t _index, con
 	}
 
 	return -1;
+}
+
+inline float ArrayF_Get(const ArrayF* const _array, const size_t _index)
+{
+	if (_index >= ArrayF_GetSize(_array))
+	{
+		printf("[ERROR] Out of range\n");
+		exit(EXIT_FAILURE);
+	}
+
+	return _array->data[_index];
+}
+
+inline size_t ArrayF_GetSize(const ArrayF* const _array)
+{
+	return _array->size;
+}
+
+inline bool ArrayF_IsNull(const ArrayF* const _array)
+{
+	return (_array == NULL || _array->data == NULL);
 }
 
 float ArrayF_Max(const ArrayF* const _array, const size_t _index, const size_t _count)
@@ -134,4 +164,20 @@ void ArrayF_Reverse(const ArrayF* const _array, const size_t _index, const size_
 	{
 		ArrayF_Set(_array, i + _index, ArrayF_Get(_array, _count - (1 + i)));
 	}
+}
+
+inline void ArrayF_Set(ArrayF* const _array, const size_t _index, const float _value)
+{
+	if (_index >= ArrayF_GetSize(_array))
+	{
+		printf("[ERROR] Out of range\n");
+		exit(EXIT_FAILURE);
+	}
+
+	_array->data[_index] = _value;
+}
+
+inline void ArrayF_ToString(char* _result, const size_t _resultSize, const ArrayF* const _array, const size_t _index)
+{
+	snprintf(_result, _resultSize, "%.6f", ArrayF_Get(_array, _index));
 }
