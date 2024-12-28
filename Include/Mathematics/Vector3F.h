@@ -93,6 +93,10 @@ inline Tuple3F Vector3F_Get(const Vector3F* const _vector, const size_t _index);
 
 inline bool Vector3F_IsNull(const Vector3F* const _vector);
 
+inline bool Vector3F_IsOutOfBounds(const Vector3F* const _vector, const size_t _index);
+
+inline bool Vector3F_IsValid(const Vector3F* const _vector, const size_t _index);
+
 inline Tuple3F Vector3F_LeftScalar(void);
 
 void Vector3F_Length(ArrayF* const _result, const size_t _resultIndex,

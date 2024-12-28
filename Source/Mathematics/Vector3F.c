@@ -279,6 +279,26 @@ inline bool Vector3F_IsNull(const Vector3F* const _vector)
 	return (_vector == NULL || _vector->x.data == NULL || _vector->y.data == NULL || _vector->z.data == NULL);
 }
 
+inline bool Vector3F_IsOutOfBounds(const Vector3F* const _vector, const size_t _index)
+{
+	return _index >= _vector->x.size || _index >= _vector->y.size || _index >= _vector->z.size;
+}
+
+inline bool Vector3F_IsValid(const Vector3F* const _vector, const size_t _index)
+{
+	if (Vector3F_IsNull(_vector))
+	{
+		return false;
+	}
+
+	if (Vector3F_IsOutOfBounds(_vector, _index))
+	{
+		return false;
+	}
+
+	return true;
+}
+
 
 inline Tuple3F Vector3F_LeftScalar(void)
 {
