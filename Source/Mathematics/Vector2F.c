@@ -3,15 +3,24 @@
 #include <stdlib.h>
 
 
-void Vector2F_Add(Vector2F* const _result, const size_t _resultIndex,
-	              const Vector2F* const _left, const size_t _leftIndex,
-	              const Vector2F* const _right, const size_t _rightIndex, const size_t _count)
+int Vector2F_Add(Vector2F* const _result, const size_t _resultIndex,
+	             const Vector2F* const _left, const size_t _leftIndex,
+	             const Vector2F* const _right, const size_t _rightIndex, const size_t _count)
 {
+	if (!Vector2F_IsValid(_result, _resultIndex + _count - 1) || 
+		!Vector2F_IsValid(_left, _leftIndex + _count - 1) || 
+		!Vector2F_IsValid(_right, _rightIndex + _count - 1))
+	{
+		return 1;
+	}
+
 	for (size_t i = 0; i < _count; i++)
 	{
 		const Tuple2F vector = Vector2F_AddScalar(_left, i + _leftIndex, _right, i + _rightIndex);
 		Vector2F_Set(_result, i + _resultIndex, vector);
 	}
+
+	return 0;
 }
 
 inline Tuple2F Vector2F_AddScalar(const Vector2F* const _left, const size_t _leftIndex,
@@ -24,15 +33,24 @@ inline Tuple2F Vector2F_AddScalar(const Vector2F* const _left, const size_t _lef
 }
 
 
-void Vector2F_Angle(ArrayF* const _result, const size_t _resultIndex,
-	                const Vector2F* const _from, const size_t _fromIndex,
-	                const Vector2F* const _to, const size_t _toIndex, const size_t _count)
+int Vector2F_Angle(ArrayF* const _result, const size_t _resultIndex,
+	               const Vector2F* const _from, const size_t _fromIndex,
+	               const Vector2F* const _to, const size_t _toIndex, const size_t _count)
 {
+	if (!ArrayF_IsValid(_result, _resultIndex + _count - 1) ||
+		!Vector2F_IsValid(_from, _fromIndex + _count - 1) ||
+		!Vector2F_IsValid(_to, _toIndex + _count - 1))
+	{
+		return 1;
+	}
+
 	for (size_t i = 0; i < _count; i++)
 	{
 		const float angle = Vector2F_AngleScalar(_from, i + _fromIndex, _to, i + _toIndex);
 		ArrayF_Set(_result, i + _resultIndex, angle);
 	}
+
+	return 0;
 }
 
 inline float Vector2F_AngleScalar(const Vector2F* const _from, const size_t _fromIndex,
@@ -55,13 +73,21 @@ inline float Vector2F_AngleScalar(const Vector2F* const _from, const size_t _fro
 }
 
 
-void Vector2F_Copy(const Vector2F* const _from, const size_t _fromIndex,
-	               Vector2F* const _to, const size_t _toIndex, const size_t _count)
+int Vector2F_Copy(const Vector2F* const _from, const size_t _fromIndex,
+	              Vector2F* const _to, const size_t _toIndex, const size_t _count)
 {
+	if (!Vector2F_IsValid(_from, _fromIndex + _count - 1) ||
+		!Vector2F_IsValid(_to, _toIndex + _count - 1))
+	{
+		return 1;
+	}
+
 	for (size_t i = 0; i < _count; i++)
 	{
 		Vector2F_CopyScalar(_from, i + _fromIndex, _to, i + _toIndex);
 	}
+
+	return 0;
 }
 
 inline void Vector2F_CopyScalar(const Vector2F* const _from, const size_t _fromIndex,
@@ -120,15 +146,24 @@ void Vector2F_Destroy(Vector2F** _vector)
 	}
 }
 
-void Vector2F_Distance(ArrayF* const _result, const size_t _resultIndex,
-	                   const Vector2F* const _from, const size_t _fromIndex,
-	                   const Vector2F* const _to, const size_t _toIndex, size_t _count)
+int Vector2F_Distance(ArrayF* const _result, const size_t _resultIndex,
+	                  const Vector2F* const _from, const size_t _fromIndex,
+	                  const Vector2F* const _to, const size_t _toIndex, size_t _count)
 {
+	if (!ArrayF_IsValid(_result, _resultIndex + _count - 1) ||
+		!Vector2F_IsValid(_from, _fromIndex + _count - 1) ||
+		!Vector2F_IsValid(_to, _toIndex + _count - 1))
+	{
+		return 1;
+	}
+
 	for (size_t i = 0; i < _count; i++)
 	{
 		const float distance = Vector2F_DistanceScalar(_from, i + _fromIndex, _to, i + _toIndex);
 		ArrayF_Set(_result, i + _resultIndex, distance);
 	}
+
+	return 0;
 }
 
 inline float Vector2F_DistanceScalar(const Vector2F* const _from, const size_t _fromIndex,
@@ -144,15 +179,24 @@ inline float Vector2F_DistanceScalar(const Vector2F* const _from, const size_t _
 }
 
 
-void Vector2F_DistanceSquared(ArrayF* const _result, const size_t _resultIndex,
-	                          const Vector2F* const _from, const size_t _fromIndex,
-	                          const Vector2F* const _to, const size_t _toIndex, const size_t _count)
+int Vector2F_DistanceSquared(ArrayF* const _result, const size_t _resultIndex,
+	                         const Vector2F* const _from, const size_t _fromIndex,
+	                         const Vector2F* const _to, const size_t _toIndex, const size_t _count)
 {
+	if (!ArrayF_IsValid(_result, _resultIndex + _count - 1) ||
+		!Vector2F_IsValid(_from, _fromIndex + _count - 1) ||
+		!Vector2F_IsValid(_to, _toIndex + _count - 1))
+	{
+		return 1;
+	}
+
 	for (size_t i = 0; i < _count; i++)
 	{
 		const float distanceSquared = Vector2F_DistanceSquaredScalar(_from, i + _fromIndex, _to, i + _toIndex);
 		ArrayF_Set(_result, i + _resultIndex, distanceSquared);
 	}
+
+	return 0;
 }
 
 inline float Vector2F_DistanceSquaredScalar(const Vector2F* const _from, const size_t _fromIndex,
@@ -168,15 +212,24 @@ inline float Vector2F_DistanceSquaredScalar(const Vector2F* const _from, const s
 }
 
 
-void Vector2F_Divide(Vector2F* const _result, const size_t _resultIndex,
-	                 const Vector2F* const _left, const size_t _leftIndex,
-	                 const Vector2F* const _right, const size_t _rightIndex, const size_t _count)
+int Vector2F_Divide(Vector2F* const _result, const size_t _resultIndex,
+	                const Vector2F* const _left, const size_t _leftIndex,
+	                const Vector2F* const _right, const size_t _rightIndex, const size_t _count)
 {
+	if (!Vector2F_IsValid(_result, _resultIndex + _count - 1) ||
+		!Vector2F_IsValid(_left, _leftIndex + _count - 1) ||
+		!Vector2F_IsValid(_right, _rightIndex + _count - 1))
+	{
+		return 1;
+	}
+
 	for (size_t i = 0; i < _count; i++)
 	{
 		const Tuple2F vector = Vector2F_DivideScalar(_left, i + _leftIndex, _right, i + _rightIndex);
 		Vector2F_Set(_result, i + _resultIndex, vector);
 	}
+
+	return 0;
 }
 
 inline Tuple2F Vector2F_DivideScalar(const Vector2F* const _left, const size_t _leftIndex,
@@ -190,15 +243,24 @@ inline Tuple2F Vector2F_DivideScalar(const Vector2F* const _left, const size_t _
 }
 
 
-void Vector2F_Dot(ArrayF* const _result, const size_t _resultIndex,
-	              const Vector2F* const _left, const size_t _leftIndex,
-	              const Vector2F* const _right, const size_t _rightIndex, const size_t _count)
+int Vector2F_Dot(ArrayF* const _result, const size_t _resultIndex,
+	             const Vector2F* const _left, const size_t _leftIndex,
+	             const Vector2F* const _right, const size_t _rightIndex, const size_t _count)
 {
+	if (!ArrayF_IsValid(_result, _resultIndex + _count - 1) ||
+		!Vector2F_IsValid(_left, _leftIndex + _count - 1) ||
+		!Vector2F_IsValid(_right, _rightIndex + _count - 1))
+	{
+		return 1;
+	}
+
 	for (size_t i = 0; i < _count; i++)
 	{
 		const float dot = Vector2F_DotScalar(_left, i + _leftIndex, _right, i + _rightIndex);
 		ArrayF_Set(_result, i + _resultIndex, dot);
 	}
+
+	return 0;
 }
 
 inline float Vector2F_DotScalar(const Vector2F* const _left, const size_t _leftIndex,
@@ -266,14 +328,21 @@ inline Tuple2F Vector2F_LeftScalar(void)
 }
 
 
-void Vector2F_Length(ArrayF* const _result, const size_t _resultIndex,
-	                 const Vector2F* const _vector, const size_t _vectorIndex, const size_t _count)
+int Vector2F_Length(ArrayF* const _result, const size_t _resultIndex,
+	                const Vector2F* const _vector, const size_t _vectorIndex, const size_t _count)
 {
+	if (!ArrayF_IsValid(_result, _resultIndex + _count - 1) ||
+		!Vector2F_IsValid(_vector, _vectorIndex + _count - 1))
+	{
+		return 1;
+	}
 	for (size_t i = 0; i < _count; i++)
 	{
 		const float length = Vector2F_LengthScalar(_vector, i + _vectorIndex);
 		ArrayF_Set(_result, i + _resultIndex, length);
 	}
+
+	return 0;
 }
 
 inline float Vector2F_LengthScalar(const Vector2F* const _vector, const size_t _index)
@@ -284,14 +353,22 @@ inline float Vector2F_LengthScalar(const Vector2F* const _vector, const size_t _
 }
 
 
-void Vector2F_LengthSquared(ArrayF* const _result, const size_t _resultIndex,
-	                        const Vector2F* const _vector, const size_t _vectorIndex, const size_t _count)
+int Vector2F_LengthSquared(ArrayF* const _result, const size_t _resultIndex,
+	                       const Vector2F* const _vector, const size_t _vectorIndex, const size_t _count)
 {
+	if (!ArrayF_IsValid(_result, _resultIndex + _count - 1) ||
+		!Vector2F_IsValid(_vector, _vectorIndex + _count - 1))
+	{
+		return 1;
+	}
+
 	for (size_t i = 0; i < _count; i++)
 	{
 		const float lengthSquared = Vector2F_LengthSquaredScalar(_vector, i + _vectorIndex);
 		ArrayF_Set(_result, i + _resultIndex, lengthSquared);
 	}
+
+	return 0;
 }
 
 inline float Vector2F_LengthSquaredScalar(const Vector2F* const _vector, const size_t _index)
@@ -302,17 +379,27 @@ inline float Vector2F_LengthSquaredScalar(const Vector2F* const _vector, const s
 }
 
 
-void Vector2F_Lerp(Vector2F* const _result, const size_t _resultIndex,
-	               const Vector2F* const _left, const size_t _leftIndex,
-	               const Vector2F* const _right, const size_t _rightIndex,
-	               const ArrayF* const _interpolationFactor, const size_t _interpolationFactorIndex, const size_t _count)
+int Vector2F_Lerp(Vector2F* const _result, const size_t _resultIndex,
+	              const Vector2F* const _left, const size_t _leftIndex,
+	              const Vector2F* const _right, const size_t _rightIndex,
+	              const ArrayF* const _interpolationFactor, const size_t _interpolationFactorIndex, const size_t _count)
 {
+	if (!Vector2F_IsValid(_result, _resultIndex + _count - 1) ||
+		!Vector2F_IsValid(_left, _leftIndex + _count - 1) ||
+		!Vector2F_IsValid(_right, _rightIndex + _count - 1) || 
+		!ArrayF_IsValid(_interpolationFactor, _interpolationFactorIndex + _count - 1))
+	{
+		return 1;
+	}
+
 	for (size_t i = 0; i < _count; i++)
 	{
 		const Tuple2F lerp = Vector2F_LerpScalar(_left, i + _leftIndex, _right, i + _rightIndex, 
 			                               _interpolationFactor, i + _interpolationFactorIndex);
 		Vector2F_Set(_result, i + _resultIndex, lerp);
 	}
+
+	return 0;
 }
 
 inline Tuple2F Vector2F_LerpScalar(const Vector2F* const _start, const size_t _startIndex,
@@ -330,17 +417,27 @@ inline Tuple2F Vector2F_LerpScalar(const Vector2F* const _start, const size_t _s
 }
 
 
-void Vector2F_LerpUnclamped(Vector2F* const _result, const size_t _resultIndex,
-	                        const Vector2F* const _left, const size_t _leftIndex,
-	                        const Vector2F* const _right, const size_t _rightIndex,
-	                        const ArrayF* const _interpolationFactor, const size_t _interpolationFactorIndex, const size_t _count)
+int Vector2F_LerpUnclamped(Vector2F* const _result, const size_t _resultIndex,
+	                       const Vector2F* const _left, const size_t _leftIndex,
+	                       const Vector2F* const _right, const size_t _rightIndex,
+	                       const ArrayF* const _interpolationFactor, const size_t _interpolationFactorIndex, const size_t _count)
 {
+	if (!Vector2F_IsValid(_result, _resultIndex + _count - 1) ||
+		!Vector2F_IsValid(_left, _leftIndex + _count - 1) ||
+		!Vector2F_IsValid(_right, _rightIndex + _count - 1) ||
+		!ArrayF_IsValid(_interpolationFactor, _interpolationFactorIndex + _count - 1))
+	{
+		return 1;
+	}
+
 	for (size_t i = 0; i < _count; i++)
 	{
 		const Tuple2F lerpUnclamped = Vector2F_LerpUnclampedScalar(_left, i + _leftIndex, _right, i + _rightIndex, 
 			                                                       _interpolationFactor, i + _interpolationFactorIndex);
 		Vector2F_Set(_result, i + _resultIndex, lerpUnclamped);
 	}
+
+	return 0;
 }
 
 inline Tuple2F Vector2F_LerpUnclampedScalar(const Vector2F* const _start, const size_t _startIndex,
@@ -356,15 +453,24 @@ inline Tuple2F Vector2F_LerpUnclampedScalar(const Vector2F* const _start, const 
 }
 
 
-void Vector2F_Max(Vector2F* const _result, const size_t _resultIndex,
-	              const Vector2F* const _left, const size_t _leftIndex,
-	              const Vector2F* const _right, const size_t _rightIndex, const size_t _count)
+int Vector2F_Max(Vector2F* const _result, const size_t _resultIndex,
+	             const Vector2F* const _left, const size_t _leftIndex,
+	             const Vector2F* const _right, const size_t _rightIndex, const size_t _count)
 {
+	if (!Vector2F_IsValid(_result, _resultIndex + _count - 1) ||
+		!Vector2F_IsValid(_left, _leftIndex + _count - 1) ||
+		!Vector2F_IsValid(_right, _rightIndex + _count - 1))
+	{
+		return 1;
+	}
+
 	for (size_t i = 0; i < _count; i++)
 	{
 		const Tuple2F max = Vector2F_MaxScalar(_left, i + _leftIndex, _right, i + _rightIndex);
 		Vector2F_Set(_result, i + _resultIndex, max);
 	}
+
+	return 0;
 }
 
 inline Tuple2F Vector2F_MaxScalar(const Vector2F* const _left, const size_t _leftIndex,
@@ -378,15 +484,24 @@ inline Tuple2F Vector2F_MaxScalar(const Vector2F* const _left, const size_t _lef
 }
 
 
-void Vector2F_Min(Vector2F* const _result, const size_t _resultIndex,
-	              const Vector2F* const _left, const size_t _leftIndex,
-	              const Vector2F* const _right, const size_t _rightIndex, const size_t _count)
+int Vector2F_Min(Vector2F* const _result, const size_t _resultIndex,
+	             const Vector2F* const _left, const size_t _leftIndex,
+	             const Vector2F* const _right, const size_t _rightIndex, const size_t _count)
 {
+	if (!Vector2F_IsValid(_result, _resultIndex + _count - 1) ||
+		!Vector2F_IsValid(_left, _leftIndex + _count - 1) ||
+		!Vector2F_IsValid(_right, _rightIndex + _count - 1))
+	{
+		return 1;
+	}
+
 	for (size_t i = 0; i < _count; i++)
 	{
 		const Tuple2F min = Vector2F_MinScalar(_left, i + _leftIndex, _right, i + _rightIndex);
 		Vector2F_Set(_result, i + _resultIndex, min);
 	}
+
+	return 0;
 }
 
 inline Tuple2F Vector2F_MinScalar(const Vector2F* const _left, const size_t _leftIndex,
@@ -399,17 +514,27 @@ inline Tuple2F Vector2F_MinScalar(const Vector2F* const _left, const size_t _lef
 		MinF(left.y, right.y));
 }
 
-void Vector2F_MoveTowards(Vector2F* const _result, const size_t _resultIndex,
-	                      const Vector2F* const _current, const size_t _currentIndex,
-	                      const Vector2F* const _target, const size_t _targetIndex,
-	                      const ArrayF* const _maxDistanceDelta, const size_t _maxDistanceDeltaIndex, const size_t _count)
+int Vector2F_MoveTowards(Vector2F* const _result, const size_t _resultIndex,
+	                     const Vector2F* const _current, const size_t _currentIndex,
+	                     const Vector2F* const _target, const size_t _targetIndex,
+	                     const ArrayF* const _maxDistanceDelta, const size_t _maxDistanceDeltaIndex, const size_t _count)
 {
+	if (!Vector2F_IsValid(_result, _resultIndex + _count - 1) ||
+		!Vector2F_IsValid(_current, _currentIndex + _count - 1) ||
+		!Vector2F_IsValid(_target, _targetIndex + _count - 1) ||
+		!ArrayF_IsValid(_maxDistanceDelta, _maxDistanceDeltaIndex + _count - 1))
+	{
+		return 1;
+	}
+
 	for (size_t i = 0; i < _count; i++)
 	{
 		const Tuple2F moveTowards = Vector2F_MoveTowardsScalar(_current, i + _currentIndex, _target, i + _targetIndex, 
 			                                                   _maxDistanceDelta, i + _maxDistanceDeltaIndex);
 		Vector2F_Set(_result, i + _resultIndex, moveTowards);
 	}
+
+	return 0;
 }
 
 inline Tuple2F Vector2F_MoveTowardsScalar(const Vector2F* const _current, const size_t _currentIndex,
@@ -435,15 +560,24 @@ inline Tuple2F Vector2F_MoveTowardsScalar(const Vector2F* const _current, const 
 }
 
 
-void Vector2F_Multiply(Vector2F* const _result, const size_t _resultIndex,
-	                   const Vector2F* const _left, const size_t _leftIndex,
-	                   const Vector2F* const _right, const size_t _rightIndex, const size_t _count)
+int Vector2F_Multiply(Vector2F* const _result, const size_t _resultIndex,
+	                  const Vector2F* const _left, const size_t _leftIndex,
+	                  const Vector2F* const _right, const size_t _rightIndex, const size_t _count)
 {
+	if (!Vector2F_IsValid(_result, _resultIndex + _count - 1) ||
+		!Vector2F_IsValid(_left, _leftIndex + _count - 1) ||
+		!Vector2F_IsValid(_right, _rightIndex + _count - 1))
+	{
+		return 1;
+	}
+
 	for (size_t i = 0; i < _count; i++)
 	{
 		const Tuple2F vector = Vector2F_MultiplyScalar(_left, i + _leftIndex, _right, i + _rightIndex);
 		Vector2F_Set(_result, i + _resultIndex, vector);
 	}
+
+	return 0;
 }
 
 inline Tuple2F Vector2F_MultiplyScalar(const Vector2F* const _left, const size_t _leftIndex,
@@ -456,12 +590,19 @@ inline Tuple2F Vector2F_MultiplyScalar(const Vector2F* const _left, const size_t
 }
 
 
-void Vector2F_Normalize(Vector2F* const _vector, const size_t _index, const size_t _count)
+int Vector2F_Normalize(Vector2F* const _vector, const size_t _index, const size_t _count)
 {
+	if (!Vector2F_IsValid(_vector, _index + _count - 1))
+	{
+		return 1;
+	}
+
 	for (size_t i = 0; i < _count; i++)
 	{
 		Vector2F_NormalizeScalar(_vector, i + _index);
 	}
+
+	return 0;
 }
 
 inline void Vector2F_NormalizeScalar(Vector2F* const _vector, const size_t _index)
@@ -490,14 +631,22 @@ inline Tuple2F Vector2F_OneScalar(void)
 }
 
 
-void Vector2F_Perpendicular(Vector2F* const _result, const size_t _resultIndex,
-	                        const Vector2F* const _vector, const size_t _vectorIndex, const size_t _count)
+int Vector2F_Perpendicular(Vector2F* const _result, const size_t _resultIndex,
+	                       const Vector2F* const _vector, const size_t _vectorIndex, const size_t _count)
 {
+	if (!Vector2F_IsValid(_result, _resultIndex + _count - 1) ||
+		!Vector2F_IsValid(_vector, _vectorIndex + _count - 1))
+	{
+		return 1;
+	}
+
 	for (size_t i = 0; i < _count; i++)
 	{
 		const Tuple2F perpendicular = Vector2F_PerpendicularScalar(_vector, i + _vectorIndex);
 		Vector2F_Set(_result, i + _resultIndex, perpendicular);
 	}
+
+	return 0;
 }
 
 inline Tuple2F Vector2F_PerpendicularScalar(const Vector2F* const _vector, const size_t _index)
@@ -508,15 +657,24 @@ inline Tuple2F Vector2F_PerpendicularScalar(const Vector2F* const _vector, const
 }
 
 
-void Vector2F_Reflect(Vector2F* const _result, const size_t _resultIndex,
-	                  const Vector2F* const _inDirection, const size_t _inDirectionIndex,
-	                  const Vector2F* const _inNormal, const size_t _inNormalIndex, const size_t _count)
+int Vector2F_Reflect(Vector2F* const _result, const size_t _resultIndex,
+	                 const Vector2F* const _inDirection, const size_t _inDirectionIndex,
+	                 const Vector2F* const _inNormal, const size_t _inNormalIndex, const size_t _count)
 {
+	if (!Vector2F_IsValid(_result, _resultIndex + _count - 1) ||
+		!Vector2F_IsValid(_inDirection, _inDirectionIndex + _count - 1) ||
+		!Vector2F_IsValid(_inNormal, _inNormalIndex + _count - 1))
+	{
+		return 1;
+	}
+
 	for (size_t i = 0; i < _count; i++)
 	{
 		const Tuple2F vector = Vector2F_ReflectScalar(_inDirection, i + _inDirectionIndex, _inNormal, i + _inNormalIndex);
 		Vector2F_Set(_result, i + _resultIndex, vector);
 	}
+
+	return 0;
 }
 
 inline Tuple2F Vector2F_ReflectScalar(const Vector2F* const _inDirection, const size_t _inDirectonIndex,
@@ -545,15 +703,24 @@ inline void Vector2F_Set(Vector2F* const _vector, const size_t _index, const Tup
 }
 
 
-void Vector2F_SignedAngle(ArrayF* const _result, const size_t _resultIndex,
-	                      const Vector2F* const _from, const size_t _fromIndex,
-	                      const Vector2F* const _to, const size_t _toIndex, const size_t _count)
+int Vector2F_SignedAngle(ArrayF* const _result, const size_t _resultIndex,
+	                     const Vector2F* const _from, const size_t _fromIndex,
+	                     const Vector2F* const _to, const size_t _toIndex, const size_t _count)
 {
+	if (!Vector2F_IsValid(_result, _resultIndex + _count - 1) ||
+		!Vector2F_IsValid(_from, _fromIndex + _count - 1) ||
+		!Vector2F_IsValid(_to, _toIndex + _count - 1))
+	{
+		return 1;
+	}
+
 	for (size_t i = 0; i < _count; i++)
 	{
 		const float signedAngle = Vector2F_SignedAngleScalar(_from, i + _fromIndex, _to, i + _toIndex);
 		ArrayF_Set(_result, i + _resultIndex, signedAngle);
 	}
+
+	return 0;
 }
 
 inline float Vector2F_SignedAngleScalar(const Vector2F* const _from, const size_t _fromIndex,
@@ -567,14 +734,25 @@ inline float Vector2F_SignedAngleScalar(const Vector2F* const _from, const size_
 }
 
 
-void Vector2F_SmoothDamp(Vector2F* const _result, const size_t _resultIndex,
-	                     const Vector2F* const _current, const size_t _currentIndex,
-	                     const Vector2F* const _target, const size_t _targetIndex,
-	                     Vector2F* const _currentVelocity, const size_t _currentVelocityIndex,
-	                     const ArrayF* const _smoothTime, const size_t _smoothTimeIndex,
-	                     const ArrayF* const _maxSpeed, const size_t _maxSpeedIndex,
-	                     const ArrayF* const _deltaTime, const size_t _deltaTimeIndex, const size_t _count)
+int Vector2F_SmoothDamp(Vector2F* const _result, const size_t _resultIndex,
+	                    const Vector2F* const _current, const size_t _currentIndex,
+	                    const Vector2F* const _target, const size_t _targetIndex,
+	                    Vector2F* const _currentVelocity, const size_t _currentVelocityIndex,
+	                    const ArrayF* const _smoothTime, const size_t _smoothTimeIndex,
+	                    const ArrayF* const _maxSpeed, const size_t _maxSpeedIndex,
+	                    const ArrayF* const _deltaTime, const size_t _deltaTimeIndex, const size_t _count)
 {
+	if (!Vector2F_IsValid(_result, _resultIndex + _count - 1) ||
+		!Vector2F_IsValid(_current, _currentIndex + _count - 1) ||
+		!Vector2F_IsValid(_target, _targetIndex + _count - 1) ||
+		!Vector2F_IsValid(_currentVelocity, _currentVelocityIndex + _count - 1) || 
+		!ArrayF_IsValid(_smoothTime, _smoothTimeIndex + _count - 1) ||
+		!ArrayF_IsValid(_maxSpeed, _maxSpeedIndex + _count - 1) ||
+		!ArrayF_IsValid(_deltaTime, _deltaTimeIndex + _count - 1))
+	{
+		return 1;
+	}
+
 	for (size_t i = 0; i < _count; i++)
 	{
 		const Tuple2F smoothDamp = Vector2F_SmoothDampScalar(_current, i + _currentIndex, _target, i + _targetIndex,
@@ -582,6 +760,8 @@ void Vector2F_SmoothDamp(Vector2F* const _result, const size_t _resultIndex,
 			                                                 _maxSpeed, i + _maxSpeedIndex, _deltaTime, i + _deltaTimeIndex);
 		Vector2F_Set(_result, i + _resultIndex, smoothDamp);
 	}
+
+	return 0;
 }
 
 inline Tuple2F Vector2F_SmoothDampScalar(const Vector2F* const _current, const size_t _currentIndex,
@@ -652,15 +832,24 @@ inline Tuple2F Vector2F_SmoothDampScalar(const Vector2F* const _current, const s
 }
 
 
-void Vector2F_Subtract(Vector2F* const _result, const size_t _resultIndex,
-	                   const Vector2F* const _left, const size_t _leftIndex,
-	                   const Vector2F* const _right, const size_t _rightIndex, const size_t _count)
+int Vector2F_Subtract(Vector2F* const _result, const size_t _resultIndex,
+	                  const Vector2F* const _left, const size_t _leftIndex,
+	                  const Vector2F* const _right, const size_t _rightIndex, const size_t _count)
 {
+	if (!Vector2F_IsValid(_result, _resultIndex + _count - 1) ||
+		!Vector2F_IsValid(_left, _leftIndex + _count - 1) ||
+		!Vector2F_IsValid(_right, _rightIndex + _count - 1))
+	{
+		return 1;
+	}
+
 	for (size_t i = 0; i < _count; i++)
 	{
 		const Tuple2F vector = Vector2F_SubtractScalar(_left, i + _leftIndex, _right, i + _rightIndex);
 		Vector2F_Set(_result, i + _resultIndex, vector);
 	}
+
+	return 0;
 }
 
 inline Tuple2F Vector2F_SubtractScalar(const Vector2F* const _left, const size_t _leftIndex,
